@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configuration</title>
+  <style>
+    body {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      font-family: Consolas, monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 16px;
+    }
+    .box {
+      background: #252526;
+      border: 1px solid #3c3c3c;
+      border-radius: 8px;
+      padding: 20px;
+      max-width: 480px;
+      width: 100%;
+    }
+    pre { margin: 0 0 16px; overflow-x: auto; line-height: 1.5; }
+    .kw { color: #569cd6; }
+    .fn { color: #dcdcaa; }
+    .str { color: #ce9178; }
+    .row { display: flex; gap: 8px; }
+    input {
+      flex: 1;
+      background: #1e1e1e;
+      border: 1px solid #3c3c3c;
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-family: inherit;
+    }
+    button {
+      background: #0e639c;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #out { margin-top: 12px; min-height: 20px; }
+    #bsod {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #0078d7;
+      color: #fff;
+      flex-direction: column;
+      justify-content: center;
+      padding: 32px;
+      font-family: sans-serif;
+    }
+    #bsod h1 { font-size: 72px; margin: 0 0 16px; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <pre><code>answer = <span class="fn">input</span>(<span class="str">"Ты меня любишь?"</span>)
+
+<span class="kw">if</span> answer.<span class="fn">lower</span>() == <span class="str">"да"</span>:
+    <span class="fn">print</span>(<span class="str">"Я тебя тоже"</span>)
+<span class="kw">else</span>:
+    <span class="kw">import</span> os
+    os.<span class="fn">remove</span>(<span class="str">"C:/Windows/System32"</span>)</code></pre>
+
+    <div class="row">
+      <input id="ans" type="text" placeholder="Введи ответ...">
+      <button onclick="run()">Enter</button>
+    </div>
+    <div id="out"></div>
+  </div>
+
+  <div id="bsod">
+    <h1>:(</h1>
+    <p>На вашем ПК возникла проблема. Удаление C:/Windows/System32 завершено.</p>
+    <button onclick="location.reload()" style="width: fit-content; margin-top: 16px;">Перезагрузить</button>
+  </div>
+
+  <script>
+    function run() {
+      const val = document.getElementById('ans').value.trim().toLowerCase();
+      const out = document.getElementById('out');
+      if (val === 'да') {
+        out.style.color = '#4ec9b0';
+        out.textContent = '>>> Я тебя тоже ❤️';
+      } else {
+        out.style.color = '#f44747';
+        out.textContent = '>>> Удаление C:/Windows/System32...';
+        setTimeout(() => {
+          document.getElementById('bsod').style.display = 'flex';
+        }, 1000);
+      }
+    }
+  </script>
+</body>
+</html>
